@@ -1,0 +1,18 @@
+[Unit]
+Description=TVLINK IPTV streamer/aggregator
+After=network-online.target
+ConditionPathExists=/storage/.config/mpv/mpv.conf
+
+[Service]
+
+[Service]
+ExecStart=/bin/sh -c ". /etc/profile; /storage/.config/tvlink/tvlink > /dev/null 2>&1"
+ExecStop=/bin/kill -TERM $MAINPID
+ExecStopPost=/usr/bin/rm -f /run/y1
+TimeoutStopSec=6
+Restart=always
+RestartSec=2
+StartLimitInterval=5
+
+[Install]
+WantedBy=multi-user.target
